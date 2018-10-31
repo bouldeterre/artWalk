@@ -1,0 +1,47 @@
+[tool.poetry]
+name = "artWalk"
+version = "0.1.0"
+description = ""
+authors = ["Pierre-Emmanuel <pe@360boost.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.6"
+click = "^7.0"
+aiohttp = "^3.4"
+cchardet = "^2.1"
+aiodns = "^1.1"
+
+[tool.poetry.dev-dependencies]
+pytest = "^3.0"
+black = "^18.3-alpha.0"
+
+[tool.black]
+py36 = true
+exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | \.vagrant
+  | \.vaults
+  | \.pytest_cache
+  | \.cache
+  | ansible2.2
+  | _build
+  | build
+  | dist
+  | venv
+  | toml
+  | bin
+  | lib
+  | include
+  | alembic
+  | PythonEnv
+)/
+'''
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
+

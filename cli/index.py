@@ -1,0 +1,50 @@
+import click
+import ctypes
+import os
+import glob
+import random
+
+
+def setWallpaper(fullpath):
+    SPI_SETDESKWALLPAPER = 0x14  # SPI_SETDESKWALLPAPER command (20)
+    SPIF_UPDATEINIFILE = 0x2  # forces instant update
+    try:
+        ret = ctypes.windll.user32.SystemParametersInfoW(
+            SPI_SETDESKWALLPAPER, 0, fullpath, SPIF_UPDATEINIFILE
+        )
+        print(f"Wallpaper Changed:{ret}")
+    except Exception as e:
+        print(e)
+        raise
+
+
+@click.group()
+def cli():
+    pass
+
+
+@click.command()
+def launch():
+    """ """
+    print("Launch")
+
+
+@click.command()
+@click.option("--number", default=1, help="Wallpaper Number")
+def test(number):
+    print("start test")
+
+    curpath = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    testfiles = glob.glob("assets/*.jpg")
+    filename = random.choice(testfiles)
+
+    fullpath = os.path.join(curpath, filename)
+    print(fullpath)
+    setWallpaper(fullpath)
+
+
+cli.add_command(launch)
+cli.add_command(test)
+
+if __name__ == "__main__":
+    cli()
