@@ -5,15 +5,15 @@ import os
 import json
 
 
-async def fetch(session, url):
-    async with session.get(url) as response:
-        return await response.text()
+api = "https://www.rijksmuseum.nl/api/nl/collection"
 
 
 async def main():
     async with aiohttp.ClientSession() as session:
-        html = await fetch(session, "http://python.org")
-        print(html)
+        rijkkey = ""
+        params = {"key": rijkkey, "format": "json"}
+        async with session.get(api, params=params) as resp:
+            print(html)
 
 
 @click.group()
