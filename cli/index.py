@@ -30,8 +30,7 @@ def launch():
 
 
 @click.command()
-@click.option("--number", default=1, help="Wallpaper Number")
-def test(number):
+def test():
     print("start test")
 
     curpath = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

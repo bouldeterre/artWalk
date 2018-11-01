@@ -1,19 +1,10 @@
-import asyncio
-import aiohttp
 import click
-import os
-import json
+from worker.PaintClient import PaintClient
 
 
-api = "https://www.rijksmuseum.nl/api/nl/collection"
-
-
-async def main():
-    async with aiohttp.ClientSession() as session:
-        rijkkey = ""
-        params = {"key": rijkkey, "format": "json"}
-        async with session.get(api, params=params) as resp:
-            print(html)
+def print_help_msg(command):
+    with click.Context(command) as ctx:
+        click.echo(command.get_help(ctx))
 
 
 @click.group()
@@ -21,26 +12,30 @@ def cli():
     pass
 
 
-@click.command()
+@click.command(help="Run the Cli")
 def launch():
     """ """
     print("Launch Worker")
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(main())
+
+    try:
+        with PaintClient() as cl:
+            cl.getPaint("SK-C-5")
+    except Exception as e:
+        print(e)
+        print_help_msg(cli)
 
 
-@click.command()
+@click.command(help="Set your ApiKey")
 @click.option(
     "--rijk-key",
     prompt="What is your Rijksmuseum API key(https://www.rijksmuseum.nl/en/api)",
     hide_input=True,
+    help="Rijksmuseum API key",
 )
 def config(rijk_key):
     """ """
     passfile = open(".artkeys", "w")
-
     data = {"rijkkey": rijk_key}
-
     passfile.write(json.dumps(data))
     passfile.close()
     click.echo("Config ok")
