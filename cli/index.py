@@ -27,6 +27,11 @@ def cli():
 def launch():
     """ """
     print("Launch")
+    curpath = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    testfiles = glob.glob("assets/*_*.jpg")
+    fullpath = os.path.join(curpath, testfiles[-1])
+    print(fullpath)
+    setWallpaper(fullpath)
 
 
 @click.command()

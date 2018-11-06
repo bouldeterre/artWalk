@@ -3,6 +3,8 @@ import asyncio
 import aiohttp
 import os
 import urllib.parse
+import random
+import time
 
 api = "https://www.rijksmuseum.nl/api/nl/collection/"
 chunk_size = 200
@@ -38,7 +40,7 @@ class PaintClient(object):
         print(result.status)
         return result
 
-    async def printUrl(self, url, filename):
+    async def printUrlAsync(self, url, filename):
         curpath = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         path = os.path.join(curpath, "assets")
         os.makedirs(path, exist_ok=True)
@@ -52,13 +54,43 @@ class PaintClient(object):
                     break
                 fd.write(chunk)
 
+    def printUrl(self, url, filename):
+        result = self.loop.run_until_complete(
+            self.printUrlAsync(url, f"{time.time()}_{filename}.jpg")
+        )
+
     def getPaint(self, paintName):
         print("getPaint")
         req = urllib.parse.urljoin(api, paintName)
         parameters = {"key": self.rijkkey, "format": "json"}
         result = self.loop.run_until_complete(self.sendGetRequestJson(req, parameters))
         url = result.get("artObject").get("webImage").get("url")
-        result = self.loop.run_until_complete(self.printUrl(url, f"{paintName}.jpg"))
+        self.printUrl(url, paintName)
+
+    def getRandomPaint(self):
+        key: AyVUm1zo
+        parameters = {
+            "key": self.rijkkey,
+            "format": "json",
+            "type": "schilderij",
+            "imgonly": "True",
+            "ps": 1,
+            "p": 1,
+        }
+        result = self.loop.run_until_complete(self.sendGetRequestJson(api, parameters))
+        maxpaintings = result.get("count")
+        page = random.randint(0, maxpaintings)
+        parameters["p"] = page
+        result = self.loop.run_until_complete(self.sendGetRequestJson(api, parameters))
+        artObject = result.get("artObjects")[0]
+        id = artObject.get("id")
+        title = artObject.get("title")
+        url = artObject.get("webImage").get("url")
+        print(id)
+        print(artObject.get("objectNumber"))
+        print(title)
+        print(url)
+        return id, title, url
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         print("Exit")

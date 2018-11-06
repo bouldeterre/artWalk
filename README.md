@@ -16,8 +16,9 @@
 
     python -m worker.worker config
 
-    python -m worker.worker  launch
+    python -m worker.worker launch
 
+    python -m cli.index launch
 
 #### Run CLI Demo
 

@@ -19,7 +19,10 @@ def launch():
 
     try:
         with PaintClient() as cl:
-            cl.getPaint("SK-C-5")
+            paint = cl.getRandomPaint()
+            # print("getRandomPaintName:".format())
+            # cl.getPaint("SK-C-5")
+            cl.printUrl(paint[2], paint[0])
     except Exception as e:
         print(e)
         print_help_msg(cli)
