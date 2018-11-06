@@ -1,8 +1,8 @@
-- worker
-  Fetch art from X API
 
-- cli
-  Apply the Wallpaper
+![WalkWalk](walk.jpg)
+
+- worker Fetch art from X API
+- cli Apply the Wallpaper
 
 ##### Dependencies
 
@@ -16,7 +16,14 @@
 
     python -m worker.worker config
 
+    python -m worker.worker  launch
+
 
 #### Run CLI Demo
 
     python -m cli.index test
+
+
+
+“... was developed using the [Rijksmuseum API](https://rijksmuseum.github.io/)
+”

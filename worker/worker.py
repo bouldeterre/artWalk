@@ -28,7 +28,7 @@ def launch():
 @click.command(help="Set your ApiKey")
 @click.option(
     "--rijk-key",
-    prompt="What is your Rijksmuseum API key(https://www.rijksmuseum.nl/en/api)",
+    prompt="What is your Rijksmuseum API key(https://www.rijksmuseum.nl/en/api [Using the API's])",
     hide_input=True,
     help="Rijksmuseum API key",
 )
