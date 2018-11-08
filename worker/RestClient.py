@@ -19,7 +19,6 @@ class RestClient(object):
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        print("RestClient Exit")
         self.loop.run_until_complete(self.closeSession())
         self.loop.close()
 

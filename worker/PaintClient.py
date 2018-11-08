@@ -76,4 +76,3 @@ class PaintClient(RestClient):
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         RestClient.__exit__(self, exc_type, exc_val, exc_tb)
-        print("Exit")

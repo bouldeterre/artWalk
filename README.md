@@ -14,16 +14,19 @@
 
 #### Quickstart
 
+    python launch.py
+
+Or separately
+
+
     python -m worker.worker config
-
     python -m worker.worker launch
-
-    python -m cli.index launch
+    python -m WallpaperCli.cli launch
 
 #### Run CLI Demo
+No needs for API KEY, this will use local files
 
-    python -m cli.index test
-
+    python -m WallpaperCli.cli test
 
 
 “... was developed using the [Rijksmuseum API](https://rijksmuseum.github.io/)
