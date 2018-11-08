@@ -1,44 +1,26 @@
-from worker.config import getKey
 import asyncio
 import aiohttp
 import os
 import urllib.parse
 import random
 import time
+from worker.config import getKey
+from worker.RestClient import RestClient
 
 api = "https://www.rijksmuseum.nl/api/nl/collection/"
 chunk_size = 200
 
 
-class PaintClient(object):
+class PaintClient(RestClient):
     def __init__(self):
+        RestClient.__init__(self)
         self.rijkkey = getKey("rijkkey")
-
-        print("Init")
+        print("PaintClient Init")
 
     def __enter__(self):
-        print("Enter")
-        self.loop = asyncio.get_event_loop()
-        self.session = self.loop.run_until_complete(self.getSession())
+        RestClient.__enter__(self)
+        print("PaintClient Enter")
         return self
-
-    async def getSession(self):
-        return aiohttp.ClientSession()
-
-    async def closeSession(self):
-        await self.session.close()
-
-    async def sendGetRequestJson(self, req, params):
-        print(f"GET:{req} with:{params}")
-        result = await self.session.get(req, params=params)
-        print(result.status)
-        return await result.json()
-
-    async def sendGetRequest(self, req):
-        print(f"GET:{req}")
-        result = await self.session.get(req)
-        print(result.status)
-        return result
 
     async def printUrlAsync(self, url, filename):
         curpath = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -46,7 +28,7 @@ class PaintClient(object):
         os.makedirs(path, exist_ok=True)
         filepath = os.path.join(path, filename)
         print(filepath)
-        resp = await self.sendGetRequest(url)
+        resp = await self.sendGetRequest(url, {})
         with open(filepath, "wb") as fd:
             while True:
                 chunk = await resp.content.read(chunk_size)
@@ -93,6 +75,5 @@ class PaintClient(object):
         return id, title, url
 
     def __exit__(self, exc_type, exc_val, exc_tb):
+        RestClient.__exit__(self, exc_type, exc_val, exc_tb)
         print("Exit")
-        self.loop.run_until_complete(self.closeSession())
-        self.loop.close()
