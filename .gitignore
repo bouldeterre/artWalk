@@ -106,3 +106,4 @@ PythonEnv/
 .artkeys
 
 assets/*_nl*.jpg
+node_modules/
