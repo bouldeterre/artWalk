@@ -34,7 +34,8 @@
 
 <script>
   import ElectronLink from 'vue-electron-link'
-
+  const zerorpc = require('zerorpc')
+  let client
   export default {
     components: {
       ElectronLink
@@ -55,10 +56,21 @@
     methods: {
       reverseMessage: function () {
         this.message = this.message.split('').reverse().join('')
+        client.invoke('calc', 'toto', (error, res) => {
+          if (error) {
+            console.error(error)
+          }
+          console.log(res)
+        })
       },
       handleRemoved: function (success) {
         alert('success' + success)
       }
+    },
+    beforeMount () {
+      console.log('beforeMount')
+      client = new zerorpc.Client()
+      client.connect('tcp://127.0.0.1:4242')
     }
   }
 </script>
