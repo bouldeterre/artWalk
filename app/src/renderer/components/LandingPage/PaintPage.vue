@@ -56,11 +56,12 @@
     methods: {
       reverseMessage: function () {
         this.message = this.message.split('').reverse().join('')
-        client.invoke('calc', 'toto', (error, res) => {
+        console.log('Invoke echo')
+        client.invoke('echo', 'toto', (error, res) => {
           if (error) {
             console.error(error)
           }
-          console.log(res)
+          console.log('Res:' + res)
         })
       },
       handleRemoved: function (success) {

@@ -3,19 +3,16 @@ import sys
 import zerorpc
 
 
-class CalcApi(object):
-    def calc(self, text):
-        """based on the input text, return the int result"""
-        return text
-
+class WalkApi(object):
     def echo(self, text):
         """echo any text"""
-        return text
+        print("Received echo:" + text)
+        return "Echoing:" + text
 
 
 def main():
     addr = "tcp://127.0.0.1:4242"
-    s = zerorpc.Server(CalcApi())
+    s = zerorpc.Server(WalkApi())
     s.bind(addr)
     print("start running on {}".format(addr))
     s.run()

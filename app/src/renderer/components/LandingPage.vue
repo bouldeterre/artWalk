@@ -1,9 +1,13 @@
 <template>
   <div id="wrapper">
-   <!-- <main> -->
       <div class="left-side-column">
         <div class="">
           <router-link to="/">
+            <img id="logo50" src="~@/assets/logo.png" alt="electron-vue" >
+          </router-link>
+        </div>
+        <div class="">
+          <router-link to="/settings">
             <img id="logo50" src="~@/assets/logo.png" alt="electron-vue" >
           </router-link>
         </div>
@@ -12,24 +16,10 @@
             <img id="logo50" src="~@/assets/logo.png" alt="electron-vue" >
           </router-link>
         </div>
-
-
       </div>
       <div class="right-side">
         <paint-page></paint-page>
       </div>
-    <!-- </main> -->
-    <!--
-      <div class="left-side-column">
-
-        <router-link to="/">
-          <img id="logo50" src="~@/assets/logo.png" alt="electron-vue" >
-        </router-link>
-
-      </div>
-
-
-     -->
   </div>
 </template>
 
