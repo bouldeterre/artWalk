@@ -10,11 +10,11 @@ export default new Router({
       name: 'landing-page',
       component: require('@/components/LandingPage').default
     },
-    {
-      path: '/informations',
-      name: 'informations',
-      component: require('@/components/InfoPage').default
-    },
+    // {
+    //   path: '/informations',
+    //   name: 'informations',
+    //   component: require('@/components/LandingPage').default
+    // },
     {
       path: '*',
       redirect: '/'

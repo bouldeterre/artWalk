@@ -1,25 +1,44 @@
 <template>
-  <div>
-    <div class="title">Information</div>
-    <div class="items">
-      <div class="item">
-        <div class="name">Path:</div>
-        <div class="value">{{ path }}</div>
-      </div>
-      <div class="item">
-        <div class="name">Route Name:</div>
-        <div class="value">{{ name }}</div>
-      </div>
+  <div  id="paint-page" >
+    <div id="paint-info"  class="info" >
+
+      <electron-link
+         class="link"
+         href="https://www.rijksmuseum.nl/nl/collectie/SK-C-5">
+         <div class="title">{{PaintName}}</div>
+         <p>eeeeeeeeeeeeeeeeeeeeeeee</p>
+       </electron-link>
+
     </div>
 
-    <p>{{ message }}</p>
-    <button v-on:click="reverseMessage">Next</button>
+    <div class="paint-actions info" >
+      <p>{{ message }}</p>
+      <button v-on:click="reverseMessage">Next</button>
+    </div>
 
+    <div class="info">
+      <div class="title">Information</div>
+      <div class="items">
+        <div class="item">
+          <div class="name">Path:</div>
+          <div class="value">{{ path }}</div>
+        </div>
+        <div class="item">
+          <div class="name">Route Name:</div>
+          <div class="value">{{ name }}</div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+  import ElectronLink from 'vue-electron-link'
+
   export default {
+    components: {
+      ElectronLink
+    },
     data () {
       return {
         electron: process.versions.electron,
@@ -28,20 +47,47 @@
         path: this.$route.path,
         platform: require('os').platform(),
         vue: require('vue/package.json').version,
-        message: 'Hello Vue.js!'
+        message: 'Hello Vue.js!',
+        PaintName: 'Schutters van wijk II onder leiding van kapitein Frans Banninck Cocq, bekend als de ‘Nachtwacht’',
+        PaintURL: ''
       }
     },
     methods: {
       reverseMessage: function () {
         this.message = this.message.split('').reverse().join('')
+      },
+      handleRemoved: function (success) {
+        alert('success' + success)
       }
     }
   }
 </script>
-
 <style scoped>
+
+  #paint-page {
+    height: 100vh;
+    width: 100vw;
+    padding: 0;
+    margin: 0;
+    background-repeat: no-repeat;
+    background-position: center ;
+    background-size: cover;
+    background-image: url("~@/assets/walk.jpg");
+    background-color: black;
+  }
+
+  .info {
+    background-color: #222222;
+    width:200;
+    margin: 5px;
+  }
+
+  .info p {
+      color: #ffffff;
+  }
+
   .title {
-    color: #000000;
+    color: #ffffff;
     font-size: 18px;
     font-weight: initial;
     letter-spacing: .25px;
@@ -56,12 +102,12 @@
   }
 
   .item .name {
-    color: #000000;
+    color: #999999;
     margin-right: 6px;
   }
 
   .item .value {
-    color: #000000;
+    color: #ff00ff;
     font-weight: bold;
   }
 </style>

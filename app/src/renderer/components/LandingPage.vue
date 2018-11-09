@@ -1,18 +1,35 @@
 <template>
   <div id="wrapper">
-    <main>
-      <div class="left-side">
-        <img id="logo" src="~@/assets/logo.png" alt="electron-vue">
-        <router-link to="/informations">
-          <button >Info</button>
-        </router-link>
+   <!-- <main> -->
+      <div class="left-side-column">
+        <div class="">
+          <router-link to="/">
+            <img id="logo50" src="~@/assets/logo.png" alt="electron-vue" >
+          </router-link>
+        </div>
+        <div class="">
+          <router-link to="/informations">
+            <img id="logo50" src="~@/assets/logo.png" alt="electron-vue" >
+          </router-link>
+        </div>
+
+
       </div>
-
-
       <div class="right-side">
         <paint-page></paint-page>
       </div>
-    </main>
+    <!-- </main> -->
+    <!--
+      <div class="left-side-column">
+
+        <router-link to="/">
+          <img id="logo50" src="~@/assets/logo.png" alt="electron-vue" >
+        </router-link>
+
+      </div>
+
+
+     -->
   </div>
 </template>
 
@@ -42,6 +59,7 @@
   body { font-family: 'Source Sans Pro', sans-serif; }
 
   #wrapper {
+    display: flex;
     background:
       radial-gradient(
         ellipse at top left,
@@ -54,20 +72,37 @@
   }
 
   #logo {
+    width: 50px;
+    height: 50px;
   }
 
-  main {
-    display: flex;
-    justify-content: space-between;
-    height: 100vh;
+  #logo50 {
+    width: 50px;
+    height: 50px;
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 10px;
   }
-
-  main > div { flex-basis: 50%; }
 
   .left-side {
     display: flex;
     width: 10vh;
+    height: 100vh;
     flex-direction: column;
+    background-color: #444444
+  }
+
+  .right-side {
+    display: flex;
+    height: 100vh;
+    width: 90vw;
+  }
+
+  .left-side-column {
+    width: 20vh;
+    height: 100vh;
+    padding: 5px;
     background-color: #444444
   }
 
