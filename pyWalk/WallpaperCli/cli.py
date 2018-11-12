@@ -21,7 +21,8 @@ def setWallpaper(fullpath):
 def internal_launch():
     print("Launch WallpaperCli")
     curpath = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    testfiles = glob.glob("assets/*_*.jpg")
+    globpath = os.path.join(curpath, "assets/*_*.jpg")
+    testfiles = glob.glob(globpath)
     fullpath = os.path.join(curpath, testfiles[-1])
     print(fullpath)
     setWallpaper(fullpath)
