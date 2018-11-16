@@ -3,9 +3,12 @@ import ctypes
 import os
 import glob
 import random
+import subprocess
+
+from sys import platform
 
 
-def setWallpaper(fullpath):
+def win32Wallpaper(fullpath):
     SPI_SETDESKWALLPAPER = 0x14  # SPI_SETDESKWALLPAPER command (20)
     SPIF_UPDATEINIFILE = 0x2  # forces instant update
     try:
@@ -18,10 +21,36 @@ def setWallpaper(fullpath):
         raise
 
 
+def darwinWallpaper(fullpath):
+    SCRIPT = """/usr/bin/osascript<<END
+    tell application "Finder"
+    set desktop picture to POSIX file "%s"
+    end tell
+    END"""
+
+    try:
+        ret = subprocess.Popen(SCRIPT % fullpath, shell=True)
+        print(f"Wallpaper Changed:{ret}")
+    except Exception as e:
+        raise
+
+
+def setWallpaper(fullpath):
+    if platform == "linux" or platform == "linux2":
+        # linux
+        print("Linux not supported")
+    elif platform == "darwin":
+        # OS X
+        darwinWallpaper(fullpath)
+    elif platform == "win32":
+        win32Wallpaper(fullpath)
+
+
 def internal_launch():
     print("Launch WallpaperCli")
     curpath = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     testfiles = glob.glob("assets/*_*.jpg")
+    print(testfiles)
     fullpath = os.path.join(curpath, testfiles[-1])
     print(fullpath)
     setWallpaper(fullpath)
