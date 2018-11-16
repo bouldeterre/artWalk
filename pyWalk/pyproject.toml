@@ -16,6 +16,7 @@ zerorpc = "^0.6.1"
 pytest = "^3.0"
 black = "^18.3-alpha.0"
 ipdb = "^0.11.0"
+pyinstall = "^0.1.4"
 
 [tool.black]
 py36 = true
